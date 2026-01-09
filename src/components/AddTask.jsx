@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 
 const AddTask = ({ onTaskAdded }) => {
   const [title, setTitle] = useState("");
@@ -8,7 +9,7 @@ const AddTask = ({ onTaskAdded }) => {
     e.preventDefault();
 
     if (!title || !description) {
-      alert("Title and Description are required!");
+     toast.error("Title and Description are required!");
       return;
     }
 
@@ -16,13 +17,14 @@ const AddTask = ({ onTaskAdded }) => {
 
     try {
       await onTaskAdded(taskData); 
-      alert("Task Created Successfully");
+      toast.success("Task Created Successfully");
 
-     
       setTitle("");
       setDescription("");
+
     } catch (error) {
       console.error(error);
+      toast.error("Issue in Task Creation ");
     }
   }
 
